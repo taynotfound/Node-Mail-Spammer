@@ -59,15 +59,16 @@
         function sendMail(document){
             let mail = document.getElementById("mail").value;
             let subject = document.getElementById("sub").value;
-            let inhalt = document.getElementById("inhalt").value;
-            let times = document.getElementById("howmuch").value;
+            let inhalt = document.getElementById("text").value;
+            let times = document.getElementById("quant").value;
+            var snd = new Audio("https://www.myinstants.com/media/sounds/fbi-open-the-door-audiotrimmer.mp3");
+            snd.play()
             fetch(`http://localhost:3000/mail/${mail}/${subject}/${inhalt}/${times}`)
             .then(response => { response.json()
             alert(response)})
            }
     </script>
 <title>Spam mail</title>
-
 </head>
 
 <body class="grid justify-items-center bg-gray-700">
@@ -80,14 +81,19 @@
     </div>
 
     <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="mail" type="text" name="eMail" placeholder="spam@lunana.xyz" required>
-    <br>
+    <br><br><br>
     <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="sub" type="text" name="Subject" placeholder="Hey!" required>
-    <br>
+    <br><br><br>
     <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="text" type="text" name="Inhalt" placeholder="My name is Jeff!" required>
-    <br>
+    <br><br><br>
     <input  class="bg-gray-300 focus:bg-white rounded-md p-2" id="quant" type="number" id="howmuch" name="quantity" min="1" max="999">
-
-
+    <br><br><br>
+    <br><br><br>
+    <audio
+    id="myAudio"
+    src="https://www.myinstants.com/media/sounds/fbi-open-the-door-audiotrimmer.mp3"
+    preload="auto"
+  ></audio>
     <div class="mt-10">
         <button class="bg-red-500 bg-opacity-100 text-4xl hover:bg-red-400 rounded-lg p-4" onclick="sendMail(document)">
           START
