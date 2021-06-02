@@ -62,7 +62,7 @@
             let inhalt = document.getElementById("text").value;
             let times = document.getElementById("quant").value;
 
-            var snd = new Audio("https://www.myinstants.com/media/sounds/half-life-2-episode-2-base-alarm.mp3");
+            var snd = new Audio("https://www.myinstants.com/media/sounds/ladies-and-gentlemen-we-got-him-song.mp3");
 
             snd.play()
             fetch(`http://localhost:3000/mail/${mail}/${subject}/${inhalt}/${times}`)
@@ -75,20 +75,20 @@
 
 <body class="grid justify-items-center bg-gray-700">
 
-    <div class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500 text-8xl mt-2">
+    <a class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500 text-8xl mt-2" href="https://github.com/tayron1/Node-Mail-Spammer">
         spam mail
-    </div>
+    </a>
     <div class="grid justify-items-center mt-10 text-gray-400 mb-16">
         by Morris S. and Tayron M.
     </div>
 
     <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="mail" type="text" name="eMail" placeholder="spam@lunana.xyz" required>
-    <br><br><br>
+    <br>
     <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="sub" type="text" name="Subject" placeholder="Hey!" required>
-    <br><br><br>
+    <br>
     <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="text" type="text" name="Inhalt" placeholder="My name is Jeff!" required>
-    <br><br><br>
-    <input  class="bg-gray-300 focus:bg-white rounded-md p-2" id="quant" type="number" id="howmuch" name="quantity" min="1" max="999">
+    <br>
+    <input  class="bg-gray-300 focus:bg-white rounded-md p-2" id="quant" type="number" id="howmuch" name="quantity" min="1" max="999" required>
 
     <div class="mt-10">
         <button class="bg-red-500 bg-opacity-100 text-4xl hover:bg-red-400 rounded-lg p-4" onclick="sendMail(document)">
