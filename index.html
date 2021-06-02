@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.2/tailwind.min.css">
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1A202C;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #666;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        body,
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            padding-bottom: 30px;
+        }
+
+        header span:hover,
+        .card:hover {
+            cursor: pointer;
+            transition-duration: 0.2s;
+        }
+
+        header span {
+            transition: background-color 75ms ease-in-out;
+            transition: box-shadow 75ms ease-in-out;
+        }
+
+        * {
+            user-select: none;
+        }
+
+        .partner-title {
+            display: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #list {
+                grid-gap: 30px;
+                margin-top: 220px;
+            }
+        }
+
+    </style>
+    <script>
+        function sendMail(document){
+            let mail = document.getElementById("mail").value;
+            let subject = document.getElementById("sub").value;
+            let inhalt = document.getElementById("inhalt").value;
+            let times = document.getElementById("howmuch").value;
+            fetch(`http://localhost:3000/mail/${mail}/${subject}/${inhalt}/${times}`)
+            .then(response => {
+            alert(response)})
+           }
+    </script>
+<title>Spam mail</title>
+
+</head>
+
+<body class="grid justify-items-center bg-gray-700">
+    <br><br><br><br><br><br>
+    <input class="bg-gray-300 focus:bg-white" id="mail" type="text" name="eMail" placeholder="spam@lunana.xyz" required>
+    <br>
+    <input class="bg-gray-300 focus:bg-white" id="sub" type="text" name="Subject" placeholder="beans" required>
+    <br>
+    <input class="bg-gray-300 focus:bg-white" id="inhalt" type="text" name="Inhalt" placeholder="Jo mama" required>
+    <br>
+    <input type="number" id="howmuch" name="quantity" min="1" max="5">
+
+
+    <div class="mt-10">
+        <button class="bg-green-500 bg-opacity-100 text-4xl hover:bg-green-900 rounded-lg p-4" onclick="sendMail(document)">
+          START
+        </button>
+    </div>
+</body>
+
+<footer>
+    <div class="grid justify-items-center mt-10 text-white">
+        by Morris S and Tayron M.
+    </div>
+</footer>
