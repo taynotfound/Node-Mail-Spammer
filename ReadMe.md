@@ -28,6 +28,10 @@ Type in the Needed information and hit `Start`.
 
 Now its spamming the Mail you typed in!
 
+### Mini Disclaimer
+
+You might need to change your GMAIL settings to use your Gmail. Read more about this here: https://nodemailer.com/usage/using-gmail/
+
 <i>Please note that the Spammer may not send all of the Mails you wanted! But its still pretty annoying.</i>
 
 
