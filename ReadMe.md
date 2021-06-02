@@ -20,7 +20,7 @@ Just rename the `config.json.example` to `config.json` and fill in the required 
 
 Type `npm install` in your console.
 
-Type `npm index` in your console.
+Type `npm start index` in your console.
 
 Go to http://localhost:3000 to access the Web Panel.
 

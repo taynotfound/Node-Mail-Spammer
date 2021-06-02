@@ -62,7 +62,7 @@
             let inhalt = document.getElementById("inhalt").value;
             let times = document.getElementById("howmuch").value;
             fetch(`http://localhost:3000/mail/${mail}/${subject}/${inhalt}/${times}`)
-            .then(response => {
+            .then(response => { response.json()
             alert(response)})
            }
     </script>
