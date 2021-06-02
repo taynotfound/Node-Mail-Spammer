@@ -71,25 +71,28 @@
 </head>
 
 <body class="grid justify-items-center bg-gray-700">
-    <br><br><br><br><br><br>
-    <input class="bg-gray-300 focus:bg-white" id="mail" type="text" name="eMail" placeholder="spam@lunana.xyz" required>
+
+    <div class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500 text-8xl mt-2">
+        spam mail
+    </div>
+    <div class="grid justify-items-center mt-10 text-gray-400 mb-8">
+        by Morris S. and Tayron M.
+    </div>
+
+    <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="mail" type="text" name="eMail" placeholder="spam@lunana.xyz" required>
     <br>
-    <input class="bg-gray-300 focus:bg-white" id="sub" type="text" name="Subject" placeholder="beans" required>
+    <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="sub" type="text" name="Subject" placeholder="Hey!" required>
     <br>
-    <input class="bg-gray-300 focus:bg-white" id="inhalt" type="text" name="Inhalt" placeholder="Jo mama" required>
+    <input class="bg-gray-300 focus:bg-white rounded-md p-2" id="text" type="text" name="Inhalt" placeholder="My name is Jeff!" required>
     <br>
-    <input type="number" id="howmuch" name="quantity" min="1" max="5">
+    <input  class="bg-gray-300 focus:bg-white rounded-md p-2" id="quant" type="number" id="howmuch" name="quantity" min="1" max="999">
 
 
     <div class="mt-10">
-        <button class="bg-green-500 bg-opacity-100 text-4xl hover:bg-green-900 rounded-lg p-4" onclick="sendMail(document)">
+        <button class="bg-red-500 bg-opacity-100 text-4xl hover:bg-red-400 rounded-lg p-4" onclick="sendMail(document)">
           START
         </button>
     </div>
 </body>
 
-<footer>
-    <div class="grid justify-items-center mt-10 text-white">
-        by Morris S and Tayron M.
-    </div>
-</footer>
+</html>
