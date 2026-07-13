@@ -1,120 +1,13 @@
-name: Discord Notifications
-
 on:
-  push:
-  pull_request:
-  issues:
-  release:
-  create:
-  delete:
-  fork:
-  watch:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "This repo is archived/inactive — workflow disabled"
+        required: false
 
 jobs:
-  notify:
+  noop:
     runs-on: ubuntu-latest
+    if: false
     steps:
-      - name: Send Discord notification
-        env:
-          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1259597370014830593/Et-f9-kMZ8KMURQKz88Ux40iPsGnV700-aUIlxPuVY3SzEoqZMQALEQB2ZDgSt6fOnH_"
-        run: |
-          EVENT="${{ github.event_name }}"
-          REPO="${{ github.repository }}"
-          REPO_SHORT="${REPO##*/}"
-          REPO_URL="https://github.com/${REPO}"
-          ACTOR="${{ github.actor }}"
-          ACTOR_URL="https://github.com/${ACTOR}"
-          REF="${{ github.ref }}"
-          BRANCH="${REF##refs/heads/}"
-          SHA="${{ github.sha }}"
-          SHORT_SHA="${SHA:0:7}"
-          SHA_URL="${REPO_URL}/commit/${SHA}"
-          BRANCH_URL="${REPO_URL}/tree/${BRANCH}"
-
-          case $EVENT in
-            push)
-              COMMIT_MSG=$(echo "${{ github.event.head_commit.message }}" | head -1)
-              COUNT="${{ github.event.size }}"
-              if [ "$COUNT" -gt 1 ] 2>/dev/null; then
-                LINE2="\`${SHORT_SHA}\` [${COMMIT_MSG}](${SHA_URL}) (+${COUNT} commits)"
-              else
-                LINE2="\`${SHORT_SHA}\` [${COMMIT_MSG}](${SHA_URL})"
-              fi
-              MSG="$(printf '📦 **[%s](%s)** → [`%s`](%s)\n%s\n— [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$BRANCH" "$BRANCH_URL" \
-                "$LINE2" "$ACTOR" "$ACTOR_URL")"
-              ;;
-            pull_request)
-              ACTION="${{ github.event.action }}"
-              PR_TITLE="${{ github.event.pull_request.title }}"
-              PR_URL="${{ github.event.pull_request.html_url }}"
-              PR_NUM="${{ github.event.pull_request.number }}"
-              BASE="${{ github.event.pull_request.base.ref }}"
-              HEAD="${{ github.event.pull_request.head.ref }}"
-              MSG="$(printf '🔀 **[%s](%s)** · PR %s\n[#%s %s](%s)\n`%s` → `%s` — [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$ACTION" \
-                "$PR_NUM" "$PR_TITLE" "$PR_URL" \
-                "$HEAD" "$BASE" "$ACTOR" "$ACTOR_URL")"
-              ;;
-            issues)
-              ACTION="${{ github.event.action }}"
-              ISSUE_TITLE="${{ github.event.issue.title }}"
-              ISSUE_URL="${{ github.event.issue.html_url }}"
-              ISSUE_NUM="${{ github.event.issue.number }}"
-              MSG="$(printf '🐛 **[%s](%s)** · issue %s\n[#%s %s](%s)\n— [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$ACTION" \
-                "$ISSUE_NUM" "$ISSUE_TITLE" "$ISSUE_URL" \
-                "$ACTOR" "$ACTOR_URL")"
-              ;;
-            release)
-              TAG="${{ github.event.release.tag_name }}"
-              REL_URL="${{ github.event.release.html_url }}"
-              REL_NAME="${{ github.event.release.name }}"
-              MSG="$(printf '🚀 **[%s](%s)** · [%s — %s](%s)\n— [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$TAG" "$REL_NAME" "$REL_URL" \
-                "$ACTOR" "$ACTOR_URL")"
-              ;;
-            watch)
-              MSG="$(printf '⭐ **[%s](%s)** got a star from [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$ACTOR" "$ACTOR_URL")"
-              ;;
-            fork)
-              FORK_URL="${{ github.event.forkee.html_url }}"
-              FORK_FULL="${{ github.event.forkee.full_name }}"
-              MSG="$(printf '🍴 **[%s](%s)** forked by [%s](%s)\n→ [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$ACTOR" "$ACTOR_URL" \
-                "$FORK_FULL" "$FORK_URL")"
-              ;;
-            create)
-              REF_TYPE="${{ github.event.ref_type }}"
-              REF_NAME="${{ github.event.ref }}"
-              if [ "$REF_TYPE" = "branch" ]; then
-                REF_LINK="[\`${REF_NAME}\`](${REPO_URL}/tree/${REF_NAME})"
-              else
-                REF_LINK="[\`${REF_NAME}\`](${REPO_URL}/releases/tag/${REF_NAME})"
-              fi
-              MSG="$(printf '🌿 **[%s](%s)** · new %s %s\n— [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$REF_TYPE" "$REF_LINK" \
-                "$ACTOR" "$ACTOR_URL")"
-              ;;
-            delete)
-              REF_TYPE="${{ github.event.ref_type }}"
-              REF_NAME="${{ github.event.ref }}"
-              MSG="$(printf '🗑️ **[%s](%s)** · deleted %s \`%s\`\n— [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$REF_TYPE" "$REF_NAME" \
-                "$ACTOR" "$ACTOR_URL")"
-              ;;
-            *)
-              MSG="$(printf '⚡ **[%s](%s)** · %s by [%s](%s)' \
-                "$REPO_SHORT" "$REPO_URL" "$EVENT" "$ACTOR" "$ACTOR_URL")"
-              ;;
-          esac
-
-          jq -n \
-            --arg content "$MSG" \
-            --arg username "foxbot" \
-            --arg avatar "https://github.com/taynotfound.png" \
-            '{username: $username, avatar_url: $avatar, content: $content}' \
-          | curl -s -X POST "$DISCORD_WEBHOOK" \
-              -H "Content-Type: application/json" \
-              -d @-
+      - run: echo "disabled"
